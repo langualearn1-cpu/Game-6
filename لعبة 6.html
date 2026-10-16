@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورقة عمل تفاعلية - ظروف التكرار Adverbs of Frequency</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cairo, Fredoka & Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Fredoka:wght@400;600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        en: ['Fredoka', 'Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            gold: '#F59E0B',
+                            amber: '#D97706',
+                            teal: '#0D9488',
+                            purple: '#7C3AED',
+                            rose: '#E11D48',
+                            sky: '#0284C7',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: radial-gradient(circle at 10% 20%, #fefcf3 0%, #f0fdf4 40%, #eff6ff 80%, #fff7ed 100%);
+            min-height: 100vh;
+        }
+        .en-font {
+            font-family: 'Fredoka', 'Nunito', sans-serif;
+        }
+        /* Handwriting ruled notebook slot styling */
+        .handwriting-slot {
+            position: relative;
+            background-color: #ffffff;
+            border-bottom: 2.5px solid #334155;
+            transition: all 0.2s ease;
+        }
+        .handwriting-slot::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            border-bottom: 1.5px dashed #cbd5e1;
+            pointer-events: none;
+        }
+        .active-chip {
+            box-shadow: 0 0 0 3.5px #D97706, 0 8px 18px -2px rgba(217, 119, 6, 0.4) !important;
+            transform: translateY(-3px) scale(1.06);
+            background-color: #FEF3C7 !important;
+            border-color: #B45309 !important;
+        }
+        .slot-target-hover {
+            background-color: #FEF9C3 !important;
+            border-bottom-color: #D97706 !important;
+            transform: scale(1.02);
+        }
+        .dot-indicator {
+            letter-spacing: 2px;
+            font-size: 1.15rem;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="text-slate-800 pb-20 selection:bg-amber-100">
+
+    <header class="bg-white/95 backdrop-blur-md border-b border-amber-200 sticky top-0 z-40 shadow-xs">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-400 via-orange-400 to-rose-500 flex items-center justify-center text-white text-2xl shadow-sm">
+                    📝
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs bg-amber-100 text-amber-900 font-extrabold px-2.5 py-0.5 rounded-full en-font tracking-wide">LANGUA LEARN</span>
+                        <span class="text-xs text-slate-500 hidden sm:inline">| إعداد: المعلم ماجد السويهري</span>
+                    </div>
+                    <h1 class="text-base sm:text-lg font-black text-slate-800 leading-tight">
+                        ورقة عمل تفاعلية: ظروف التكرار (Adverbs of Frequency)
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Controls: Sound & Points -->
+            <div class="flex items-center gap-3">
+                <button onclick="toggleSound()" id="soundToggleBtn" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition" title="كتم أو تشغيل المؤثرات">
+                    <span id="soundIcon" class="text-lg">🔊</span>
+                </button>
+                <div class="bg-amber-50 border border-amber-300 px-3.5 py-1.5 rounded-2xl flex items-center gap-2 shadow-xs">
+                    <span class="text-amber-500 text-lg">⭐</span>
+                    <span class="text-xs font-bold text-amber-900">الدرجة:</span>
+                    <span id="totalPoints" class="font-black text-amber-950 text-base en-font">0</span>
+                    <span class="text-xs text-amber-700">/ 13</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 mt-6">
+        <div class="flex flex-wrap justify-center gap-2 mb-6">
+            <button onclick="switchTab('tab-part1')" id="btn-tab-part1" class="tab-btn px-5 py-2.5 rounded-2xl font-black text-sm transition shadow-sm flex items-center gap-2 bg-amber-500 text-white shadow-amber-200">
+                <span>🔘</span>
+                <span>القسم الأول: أكمل بالكلمة الصحيحة (Part I)</span>
+            </button>
+            <button onclick="switchTab('tab-part2')" id="btn-tab-part2" class="tab-btn px-5 py-2.5 rounded-2xl font-bold text-sm transition shadow-sm flex items-center gap-2 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50">
+                <span>🎯</span>
+                <span>القسم الثاني: اختر الترتيب الصحيح (Part II)</span>
+            </button>
+            <button onclick="switchTab('tab-part3')" id="btn-tab-part3" class="tab-btn px-5 py-2.5 rounded-2xl font-bold text-sm transition shadow-sm flex items-center gap-2 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50">
+                <span>🔀</span>
+                <span>تحدي ترتيب الجمل (Sentence Reorder)</span>
+            </button>
+        </div>
+
+        <section id="tab-part1" class="tab-content block">
+            <div class="bg-white/95 rounded-3xl p-5 md:p-8 shadow-xl border-2 border-amber-200 relative overflow-hidden">
+                <!-- Decorative botanical leaves -->
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-100/50 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-rose-100/40 rounded-full blur-2xl pointer-events-none"></div>
+
+                <div class="text-center pb-2">
+                    <span class="text-xs bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full en-font">SECTION I</span>
+                    <h2 class="text-2xl md:text-3xl font-black text-slate-800 en-font mt-1">
+                        I. Fill in the blanks with the correct word.
+                    </h2>
+                    <p class="text-xs text-slate-600 mt-1">
+                        لاحظ مؤشر الدوائر (⚪/⚫) بجانب كل جملة، واسحب الظرف المناسب للفراغ أو <span class="text-amber-700 font-bold underline">انقر على الكلمة ثم انقر على الفراغ</span>.
+                    </p>
+                </div>
+
+                <!-- Word Bank Box with exact dots key as in the image -->
+                <div class="bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-2 border-amber-300 rounded-3xl p-4 my-4 shadow-xs">
+                    <div class="flex items-center justify-between mb-3 text-xs font-bold text-amber-950">
+                        <span class="flex items-center gap-1.5">
+                            <span class="text-amber-600 text-base">⭐</span>
+                            <span>دليل مؤشر التكرار وبنك الكلمات (Word Bank):</span>
+                        </span>
+                        <span class="text-slate-500 text-[11px]">انقر أو اسحب الكلمة</span>
+                    </div>
+
+                    <!-- 4 Word Pills with visual dots matching worksheet header -->
+                    <div id="part1WordBank" class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+                        <!-- Card 1: never -->
+                        <div id="chip-never" onclick="selectBankWord('never', this)" draggable="true" ondragstart="handleDragStart(event, 'never')" ondragend="handleDragEnd(event)" class="word-card cursor-pointer bg-white border-2 border-amber-400 hover:border-amber-600 rounded-2xl p-2.5 text-center shadow-xs transition hover:scale-102 select-none">
+                            <div class="text-slate-400 dot-indicator mb-0.5">○○○</div>
+                            <div class="en-font font-black text-amber-900 text-lg">never</div>
+                            <div class="text-[11px] text-slate-500 font-semibold mt-0.5">أبداً (0%)</div>
+                        </div>
+                        <!-- Card 2: sometimes -->
+                        <div id="chip-sometimes" onclick="selectBankWord('sometimes', this)" draggable="true" ondragstart="handleDragStart(event, 'sometimes')" ondragend="handleDragEnd(event)" class="word-card cursor-pointer bg-white border-2 border-amber-400 hover:border-amber-600 rounded-2xl p-2.5 text-center shadow-xs transition hover:scale-102 select-none">
+                            <div class="text-slate-800 dot-indicator mb-0.5 font-bold"><span class="text-slate-900">●</span><span class="text-slate-400">○○</span></div>
+                            <div class="en-font font-black text-amber-900 text-lg">sometimes</div>
+                            <div class="text-[11px] text-slate-500 font-semibold mt-0.5">أحياناً (50%)</div>
+                        </div>
+                        <!-- Card 3: usually -->
+                        <div id="chip-usually" onclick="selectBankWord('usually', this)" draggable="true" ondragstart="handleDragStart(event, 'usually')" ondragend="handleDragEnd(event)" class="word-card cursor-pointer bg-white border-2 border-amber-400 hover:border-amber-600 rounded-2xl p-2.5 text-center shadow-xs transition hover:scale-102 select-none">
+                            <div class="text-slate-800 dot-indicator mb-0.5 font-bold"><span class="text-slate-900">●●●</span><span class="text-slate-400">○</span></div>
+                            <div class="en-font font-black text-amber-900 text-lg">usually</div>
+                            <div class="text-[11px] text-slate-500 font-semibold mt-0.5">عادةً (90%)</div>
+                        </div>
+                        <!-- Card 4: always -->
+                        <div id="chip-always" onclick="selectBankWord('always', this)" draggable="true" ondragstart="handleDragStart(event, 'always')" ondragend="handleDragEnd(event)" class="word-card cursor-pointer bg-white border-2 border-amber-400 hover:border-amber-600 rounded-2xl p-2.5 text-center shadow-xs transition hover:scale-102 select-none">
+                            <div class="text-slate-900 dot-indicator mb-0.5 font-bold">●●●●</div>
+                            <div class="en-font font-black text-amber-900 text-lg">always</div>
+                            <div class="text-[11px] text-slate-500 font-semibold mt-0.5">دائماً (100%)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="part1QuestionsContainer" class="space-y-4 mt-6">
+                    <!-- Populated dynamically via JS -->
+                </div>
+
+                <!-- Part I Action Bar -->
+                <div class="mt-8 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div id="part1Feedback" class="text-sm font-bold text-slate-700"></div>
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <button onclick="resetPart1()" class="flex-1 sm:flex-initial px-5 py-3 rounded-2xl border border-slate-300 text-slate-600 hover:bg-slate-100 font-bold text-sm transition">
+                            🔄 إعادة المحاولة
+                        </button>
+                        <button onclick="checkPart1()" class="flex-1 sm:flex-initial bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-black px-8 py-3.5 rounded-2xl shadow-lg shadow-amber-200 active:scale-95 transition flex items-center justify-center gap-2">
+                            <span>✓</span>
+                            <span>تصحيح القسم الأول</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-part2" class="tab-content hidden">
+            <div class="bg-white/95 rounded-3xl p-5 md:p-8 shadow-xl border-2 border-amber-200">
+                <div class="border-b border-slate-100 pb-4 text-center">
+                    <span class="text-xs bg-sky-100 text-sky-800 font-bold px-3 py-1 rounded-full en-font">SECTION II</span>
+                    <h2 class="text-2xl md:text-3xl font-black text-slate-800 en-font mt-1">
+                        II. Choose the correct answer.
+                    </h2>
+                    <p class="text-xs text-slate-600 mt-1">
+                        اختر الترتيب النحوي السليم لموقع ظرف التكرار (<span class="text-sky-700 font-bold">يأتي الظرف قبل الفعل الأساسي</span>).
+                    </p>
+
+                    <!-- Rule pill banner -->
+                    <div class="mt-3 p-3 bg-sky-50 rounded-2xl border border-sky-200 text-xs font-bold text-sky-900 inline-flex items-center gap-2">
+                        <span>💡 القاعدة الذهبية:</span>
+                        <span class="en-font bg-white px-2 py-0.5 rounded-lg border border-sky-200">Subject + Adverb + Main Verb (often go / sometimes watches)</span>
+                    </div>
+                </div>
+
+                <!-- 5 Interactive Choice Cards -->
+                <div id="part2QuestionsContainer" class="mt-6 space-y-5">
+                    <!-- Populated dynamically via JS -->
+                </div>
+
+                <div class="mt-8 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div id="part2Feedback" class="text-sm font-bold text-slate-700"></div>
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <button onclick="resetPart2()" class="flex-1 sm:flex-initial px-5 py-3 rounded-2xl border border-slate-300 text-slate-600 hover:bg-slate-100 font-bold text-sm transition">
+                            🔄 إعادة الضبط
+                        </button>
+                        <button onclick="checkPart2()" class="flex-1 sm:flex-initial bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-700 text-white font-black px-8 py-3.5 rounded-2xl shadow-lg shadow-sky-200 active:scale-95 transition">
+                            تحقق من القسم الثاني
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-part3" class="tab-content hidden">
+            <div class="bg-white/95 rounded-3xl p-5 md:p-8 shadow-xl border-2 border-amber-200">
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-xs bg-purple-100 text-purple-800 font-bold px-3 py-1 rounded-full en-font">SENTENCE BUILDER</span>
+                    <h2 class="text-2xl font-black text-slate-800 mt-1">تحدي رتّب الكلمات لتكوين جمل صحيحة</h2>
+                    <p class="text-xs text-slate-600 mt-1">
+                        انقر على الكلمات المبعثرة بالترتيب السليم لبناء الجمل، مع مراعاة موضع ظرف التكرار قبل الفعل الأساسي.
+                    </p>
+                </div>
+
+                <!-- Reorder Container -->
+                <div id="part3Container" class="mt-6 space-y-5">
+                    <!-- Populated via JS -->
+                </div>
+
+                <div class="mt-8 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div id="part3Feedback" class="text-sm font-bold text-slate-700"></div>
+                    <button onclick="initPart3()" class="w-full sm:w-auto px-6 py-3 rounded-2xl border border-slate-300 text-slate-600 hover:bg-slate-100 font-bold text-sm transition">
+                        🔄 إعادة خلط الجمل
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="celebrationModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center shadow-2xl border-4 border-amber-300 relative">
+            <div class="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center text-4xl mx-auto mb-3">
+                🏆
+            </div>
+            <span class="text-xs bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full en-font">LANGUA LEARN AWARDS</span>
+            <h3 class="text-2xl font-black text-slate-800 mt-2">تهانينا! أداء متميز وتام</h3>
+            <p class="text-xs text-slate-600 mt-2">
+                لقد أنجزت ورقة عمل ظروف التكرار (Adverbs of Frequency) وأتقنت جميع المهارات بنجاح فائق!
+            </p>
+            <div class="mt-4 p-3 bg-amber-50 rounded-2xl border border-amber-200 text-xs font-bold text-amber-950 flex items-center justify-center gap-2">
+                <span>⭐ إشراف المعلم:</span>
+                <span class="text-amber-950 font-black">ماجد السويهري</span>
+            </div>
+            <div class="mt-5">
+                <button onclick="closeModal()" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 text-white font-bold py-3 rounded-xl transition text-sm">
+                    إغلاق ومتابعة التدريب
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+        let audioContext = null;
+        let isMuted = false;
+
+        function initAudioEngine() {
+            if (!audioContext) audioContext = new AudioCtxClass();
+            if (audioContext.state === 'suspended') audioContext.resume();
+        }
+
+        function toggleSound() {
+            isMuted = !isMuted;
+            document.getElementById('soundIcon').innerText = isMuted ? '🔇' : '🔊';
+            document.getElementById('soundToggleBtn').classList.toggle('bg-rose-100', isMuted);
+        }
+
+        function playSoundFx(type) {
+            if (isMuted) return;
+            try {
+                initAudioEngine();
+                const now = audioContext.currentTime;
+                if (type === 'tap') {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(520, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.05);
+                } else if (type === 'drop') {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(320, now);
+                    osc.frequency.exponentialRampToValueAtTime(640, now + 0.08);
+                    gain.gain.setValueAtTime(0.18, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.08);
+                } else if (type === 'success') {
+                    [587.33, 880].forEach((freq, idx) => {
+                        const osc = audioContext.createOscillator();
+                        const gain = audioContext.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+                        gain.gain.setValueAtTime(0.18, now + idx * 0.09);
+                        gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.09 + 0.2);
+                        osc.connect(gain);
+                        gain.connect(audioContext.destination);
+                        osc.start(now + idx * 0.09);
+                        osc.stop(now + idx * 0.09 + 0.22);
+                    });
+                } else if (type === 'fail') {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, now);
+                    osc.frequency.linearRampToValueAtTime(140, now + 0.2);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.2);
+                } else if (type === 'cheer') {
+                    [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => {
+                        const osc = audioContext.createOscillator();
+                        const gain = audioContext.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(f, now + i * 0.12);
+                        gain.gain.setValueAtTime(0.2, now + i * 0.12);
+                        gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.12 + 0.35);
+                        osc.connect(gain);
+                        gain.connect(audioContext.destination);
+                        osc.start(now + i * 0.12);
+                        osc.stop(now + i * 0.12 + 0.38);
+                    });
+                }
+            } catch (err) {
+                console.log("Audio not initialized");
+            }
+        }
+
+        function speakEnglish(sentence) {
+            try {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(sentence);
+                    utterance.lang = 'en-US';
+                    utterance.rate = 0.9;
+                    window.speechSynthesis.speak(utterance);
+                }
+            } catch (e) {
+                console.log("TTS not available");
+            }
+        }
+    </script>
+
+    <script>
+        let currentTotalScore = 0;
+        let scoredP1 = 0;
+        let scoredP2 = 0;
+
+        function updateScore(p1Count, p2Count) {
+            currentTotalScore = p1Count + p2Count;
+            document.getElementById('totalPoints').innerText = currentTotalScore;
+            if (currentTotalScore >= 13) {
+                setTimeout(() => {
+                    document.getElementById('celebrationModal').classList.remove('hidden');
+                }, 600);
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('celebrationModal').classList.add('hidden');
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn px-5 py-2.5 rounded-2xl font-bold text-sm transition shadow-sm flex items-center gap-2 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50";
+            });
+
+            const activeTab = document.getElementById(tabId);
+            if (activeTab) activeTab.classList.remove('hidden');
+
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.className = "tab-btn px-5 py-2.5 rounded-2xl font-black text-sm transition shadow-sm flex items-center gap-2 bg-amber-500 text-white shadow-amber-200";
+            }
+        }
+
+        // Exact Part I data matching the user's worksheet
+        const part1Data = [
+            {
+                id: 'p1_1',
+                num: 1,
+                subject: 'I',
+                rest: 'play with my friends at break time.',
+                dotsDisplay: '●●●○',
+                dotsCategory: 'usually',
+                expected: ['usually'],
+                fullSentence: 'I usually play with my friends at break time.',
+                iconSvg: `<svg class="w-12 h-12" viewBox="0 0 80 80" fill="none"><circle cx="28" cy="30" r="8" fill="#FBBF24"/><path d="M20 50 C20 40, 36 40, 36 50 L36 65 L20 65 Z" fill="#38BDF8"/><circle cx="52" cy="30" r="8" fill="#F472B6"/><path d="M44 50 C44 40, 60 40, 60 50 L60 65 L44 65 Z" fill="#34D399"/><circle cx="40" cy="58" r="5" fill="#F87171"/><path d="M38 56 L42 60 M42 56 L38 60" stroke="white" stroke-width="1.5"/></svg>`,
+                iconTitle: 'Friends playing 🤾'
+            },
+            {
+                id: 'p1_2',
+                num: 2,
+                subject: 'She',
+                rest: 'does her homework after dinner.',
+                dotsDisplay: '●●●',
+                dotsCategory: 'always',
+                expected: ['always', 'usually'],
+                fullSentence: 'She always does her homework after dinner.',
+                iconSvg: `<svg class="w-12 h-12" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="28" r="10" fill="#FED7AA"/><path d="M28 26 C28 16, 52 16, 52 26 Z" fill="#9333EA"/><circle cx="36" cy="27" r="1.5" fill="#1E293B"/><circle cx="44" cy="27" r="1.5" fill="#1E293B"/><rect x="25" y="48" width="30" height="20" rx="3" fill="#E2E8F0" stroke="#64748B" stroke-width="1.5"/><line x1="30" y1="54" x2="50" y2="54" stroke="#94A3B8" stroke-width="1.5"/><line x1="30" y1="60" x2="45" y2="60" stroke="#94A3B8" stroke-width="1.5"/><polygon points="56,42 60,38 62,44" fill="#F59E0B"/></svg>`,
+                iconTitle: 'Studying 📖'
+            },
+            {
+                id: 'p1_3',
+                num: 3,
+                subject: 'I',
+                rest: 'make my bed before breakfast.',
+                dotsDisplay: '○○○',
+                dotsCategory: 'never',
+                expected: ['never'],
+                fullSentence: 'I never make my bed before breakfast.',
+                iconSvg: `<svg class="w-12 h-12" viewBox="0 0 80 80" fill="none"><rect x="15" y="38" width="50" height="24" rx="4" fill="#60A5FA"/><rect x="18" y="34" width="16" height="10" rx="2" fill="#E0F2FE"/><line x1="15" y1="62" x2="15" y2="70" stroke="#1E293B" stroke-width="2.5"/><line x1="65" y1="62" x2="65" y2="70" stroke="#1E293B" stroke-width="2.5"/><circle cx="40" cy="22" r="8" fill="#FED7AA"/></svg>`,
+                iconTitle: 'Making bed 🛏️'
+            },
+            {
+                id: 'p1_4',
+                num: 4,
+                subject: 'He',
+                rest: 'eats noodles for lunch.',
+                dotsDisplay: '○○○',
+                dotsCategory: 'never',
+                expected: ['never'],
+                fullSentence: 'He never eats noodles for lunch.',
+                iconSvg: `<svg class="w-12 h-12" viewBox="0 0 80 80" fill="none"><ellipse cx="40" cy="54" rx="24" ry="12" fill="#F87171"/><path d="M22 52 C26 40, 54 40, 58 52 Z" fill="#FDE047"/><line x1="28" y1="36" x2="52" y2="56" stroke="#92400E" stroke-width="2"/><line x1="34" y1="34" x2="56" y2="54" stroke="#92400E" stroke-width="2"/><circle cx="40" cy="22" r="8" fill="#FED7AA"/></svg>`,
+                iconTitle: 'Eating noodles 🍜'
+            },
+            {
+                id: 'p1_5',
+                num: 5,
+                subject: 'I',
+                rest: 'help my mom after dinner.',
+                dotsDisplay: '●○○',
+                dotsCategory: 'sometimes',
+                expected: ['sometimes'],
+                fullSentence: 'I sometimes help my mom after dinner.',
+                iconSvg: `<svg class="w-12 h-12" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="25" r="9" fill="#FED7AA"/><path d="M28 45 C28 36, 52 36, 52 45 L50 68 L30 68 Z" fill="#F43F5E"/><rect x="33" y="44" width="14" height="24" fill="#FFFFFF" opacity="0.8"/><ellipse cx="54" cy="58" rx="8" ry="4" fill="#93C5FD"/></svg>`,
+                iconTitle: 'Helping mom 👩‍👧'
+            },
+            {
+                id: 'p1_6',
+                num: 6,
+                subject: 'My sister',
+                rest: 'goes to bed at 10:00',
+                dotsDisplay: '●●●○',
+                dotsCategory: 'usually',
+                expected: ['usually'],
+                fullSentence: 'My sister usually goes to bed at 10:00.',
+                iconSvg: `<svg class="w-12 h-12" viewBox="0 0 80 80" fill="none"><rect x="14" y="42" width="52" height="22" rx="4" fill="#F472B6"/><circle cx="28" cy="46" r="6" fill="#FED7AA"/><circle cx="58" cy="24" r="10" fill="#FEF08A" stroke="#CA8A04" stroke-width="1.5"/><line x1="58" y1="24" x2="58" y2="18" stroke="#1E293B" stroke-width="1.5"/><line x1="58" y1="24" x2="64" y2="24" stroke="#1E293B" stroke-width="1.5"/></svg>`,
+                iconTitle: 'Bed at 10:00 ⏰'
+            },
+            {
+                id: 'p1_7',
+                num: 7,
+                subject: 'They',
+                rest: 'go shopping on Saturdays.',
+                dotsDisplay: '●●●',
+                dotsCategory: 'always',
+                expected: ['always', 'usually'],
+                fullSentence: 'They always go shopping on Saturdays.',
+                iconSvg: `<svg class="w-12 h-12" viewBox="0 0 80 80" fill="none"><rect x="22" y="32" width="36" height="38" rx="6" fill="#38BDF8"/><path d="M30 32 C30 22, 50 22, 50 32" stroke="#0284C7" stroke-width="2.5" fill="none"/><circle cx="40" cy="50" r="6" fill="#FBBF24"/><text x="40" y="53" font-size="8" text-anchor="middle" font-weight="bold" fill="#78350F">🛍️</text></svg>`,
+                iconTitle: 'Shopping 🛍️'
+            },
+            {
+                id: 'p1_8',
+                num: 8,
+                subject: 'Lisa',
+                rest: 'goes swimming on Mondays.',
+                dotsDisplay: '○○○',
+                dotsCategory: 'never',
+                expected: ['never'],
+                fullSentence: 'Lisa never goes swimming on Mondays.',
+                iconSvg: `<svg class="w-12 h-12" viewBox="0 0 80 80" fill="none"><path d="M12 55 Q26 48 40 55 T68 55" stroke="#0284C7" stroke-width="3" fill="none"/><path d="M12 65 Q26 58 40 65 T68 65" stroke="#38BDF8" stroke-width="3" fill="none"/><circle cx="40" cy="38" r="8" fill="#FED7AA"/><ellipse cx="40" cy="36" rx="9" ry="5" fill="#EC4899"/></svg>`,
+                iconTitle: 'Swimming 🏊'
+            }
+        ];
+
+        let userPart1Answers = {};
+        let selectedPart1Word = null;
+
+        function initPart1() {
+            userPart1Answers = {};
+            selectedPart1Word = null;
+            document.querySelectorAll('.word-card').forEach(c => c.classList.remove('active-chip'));
+            document.getElementById('part1Feedback').innerHTML = '';
+
+            const container = document.getElementById('part1QuestionsContainer');
+            container.innerHTML = '';
+
+            part1Data.forEach(item => {
+                const card = document.createElement('div');
+                card.id = `row-${item.id}`;
+                card.className = "p-4 md:p-5 rounded-2xl bg-slate-50 border border-slate-200 transition hover:border-amber-300 flex flex-col md:flex-row items-center justify-between gap-4";
+                card.innerHTML = `
+                    <div class="flex-1 w-full" dir="ltr">
+                        <div class="flex items-center gap-2.5 mb-2 text-xs font-bold text-slate-500" dir="rtl">
+                            <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-900 flex items-center justify-center font-black">${item.num}</span>
+                            <span>مؤشر التكرار:</span>
+                            <span class="dot-indicator text-slate-900 font-bold bg-amber-50 px-2.5 py-0.5 rounded-lg border border-amber-200">${item.dotsDisplay}</span>
+                        </div>
+
+                        <!-- Sentence Line with handwriting slot -->
+                        <div class="flex flex-wrap items-center gap-2 en-font text-base md:text-lg font-bold text-slate-800">
+                            <span>${item.num}. ${item.subject}</span>
+                            
+                            <div id="slot-${item.id}"
+                                 data-item-id="${item.id}"
+                                 onclick="handlePart1SlotClick('${item.id}')"
+                                 ondragover="handleSlotDragOver(event, this)"
+                                 ondragleave="handleSlotDragLeave(this)"
+                                 ondrop="handleSlotDrop(event, '${item.id}')"
+                                 class="handwriting-slot min-w-[150px] min-h-[46px] px-3 py-1 rounded-md flex items-center justify-center cursor-pointer transition">
+                                <span class="placeholder text-xs text-slate-400 font-sans font-normal">اسحب أو انقر هنا</span>
+                            </div>
+
+                            <span>${item.rest}</span>
+                            <span class="text-slate-900 font-extrabold ml-1">${item.dotsDisplay}</span>
+
+                            <!-- Audio Pronunciation Button -->
+                            <button type="button" onclick="speakEnglish('${item.fullSentence}')" class="p-1.5 text-slate-400 hover:text-amber-600 rounded-lg hover:bg-amber-50 transition" title="استمع للنطق الإنجليزي">
+                                🔊
+                            </button>
+                        </div>
+
+                        <!-- Feedback message -->
+                        <div id="fbk-${item.id}" class="text-xs font-bold mt-2 text-right hidden" dir="rtl"></div>
+                    </div>
+
+                    <!-- Matching Visual Graphic from Worksheet -->
+                    <div class="w-20 h-20 flex-shrink-0 flex items-center justify-center bg-white rounded-2xl border border-amber-100 shadow-xs">
+                        ${item.iconSvg}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function selectBankWord(word, cardEl) {
+            initAudioEngine();
+            document.querySelectorAll('.word-card').forEach(c => c.classList.remove('active-chip'));
+            if (selectedPart1Word === word) {
+                selectedPart1Word = null;
+            } else {
+                selectedPart1Word = word;
+                cardEl.classList.add('active-chip');
+                playSoundFx('tap');
+            }
+        }
+
+        function handleDragStart(e, word) {
+            initAudioEngine();
+            e.dataTransfer.setData('text/plain', word);
+        }
+
+        function handleDragEnd(e) {
+            // idle
+        }
+
+        function handleSlotDragOver(e, slot) {
+            e.preventDefault();
+            slot.classList.add('slot-target-hover');
+        }
+
+        function handleSlotDragLeave(slot) {
+            slot.classList.remove('slot-target-hover');
+        }
+
+        function handleSlotDrop(e, itemId) {
+            e.preventDefault();
+            const slot = document.getElementById(`slot-${itemId}`);
+            if (slot) slot.classList.remove('slot-target-hover');
+            const word = e.dataTransfer.getData('text/plain');
+            if (word) {
+                placeWordInPart1Slot(itemId, word);
+            }
+        }
+
+        function handlePart1SlotClick(itemId) {
+            initAudioEngine();
+            if (selectedPart1Word) {
+                placeWordInPart1Slot(itemId, selectedPart1Word);
+                selectedPart1Word = null;
+                document.querySelectorAll('.word-card').forEach(c => c.classList.remove('active-chip'));
+            } else {
+                if (userPart1Answers[itemId]) {
+                    clearPart1Slot(itemId);
+                }
+            }
+        }
+
+        function placeWordInPart1Slot(itemId, word) {
+            userPart1Answers[itemId] = word;
+            const slot = document.getElementById(`slot-${itemId}`);
+            if (slot) {
+                slot.innerHTML = `
+                    <div class="flex items-center gap-1.5">
+                        <span class="en-font font-black text-amber-900 text-lg">${word}</span>
+                        <button type="button" onclick="event.stopPropagation(); clearPart1Slot('${itemId}')" class="text-slate-400 hover:text-rose-500 font-bold text-xs p-1">✕</button>
+                    </div>
+                `;
+            }
+            playSoundFx('drop');
+        }
+
+        function clearPart1Slot(itemId) {
+            delete userPart1Answers[itemId];
+            const slot = document.getElementById(`slot-${itemId}`);
+            if (slot) {
+                slot.className = "handwriting-slot min-w-[150px] min-h-[46px] px-3 py-1 rounded-md flex items-center justify-center cursor-pointer transition";
+                slot.innerHTML = `<span class="placeholder text-xs text-slate-400 font-sans font-normal">اسحب أو انقر هنا</span>`;
+            }
+            const fbk = document.getElementById(`fbk-${itemId}`);
+            if (fbk) fbk.classList.add('hidden');
+            playSoundFx('tap');
+        }
+
+        function checkPart1() {
+            initAudioEngine();
+            let correctCount = 0;
+            const total = part1Data.length;
+
+            part1Data.forEach(item => {
+                const userAns = userPart1Answers[item.id];
+                const slot = document.getElementById(`slot-${item.id}`);
+                const fbk = document.getElementById(`fbk-${item.id}`);
+                if (!slot || !fbk) return;
+
+                fbk.classList.remove('hidden', 'text-emerald-700', 'text-rose-600');
+
+                if (userAns && item.expected.includes(userAns.toLowerCase())) {
+                    correctCount++;
+                    slot.className = "handwriting-slot min-w-[150px] min-h-[46px] px-3 py-1 rounded-md flex items-center justify-center border-b-2 border-emerald-500 bg-emerald-50";
+                    fbk.classList.add('text-emerald-700');
+                    fbk.innerHTML = `✓ أحسنت! الإجابة صحيحة وفق مؤشر (${item.dotsDisplay}).`;
+                } else {
+                    slot.className = "handwriting-slot min-w-[150px] min-h-[46px] px-3 py-1 rounded-md flex items-center justify-center border-b-2 border-rose-500 bg-rose-50";
+                    fbk.classList.add('text-rose-600');
+                    fbk.innerHTML = `✕ الإجابة الصحيحة هي: <b class="en-font font-black underline">${item.expected[0]}</b> (المؤشر ${item.dotsDisplay}).`;
+                }
+            });
+
+            scoredP1 = correctCount;
+            updateScore(scoredP1, scoredP2);
+
+            const overall = document.getElementById('part1Feedback');
+            if (correctCount === total) {
+                overall.innerHTML = `<span class="text-emerald-700 font-black">🎉 إتقان كامل للقسم الأول (${total}/${total})! أحسنت!</span>`;
+                playSoundFx('cheer');
+                confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+            } else {
+                overall.innerHTML = `<span class="text-amber-800 font-bold">أصبت في ${correctCount} من ${total}. تفقد الملاحظات وحاول مجدداً.</span>`;
+                playSoundFx(correctCount > 0 ? 'success' : 'fail');
+            }
+        }
+
+        function resetPart1() {
+            initPart1();
+        }
+
+        const part2Data = [
+            {
+                id: 'p2_1',
+                num: 1,
+                subject: 'We',
+                rest: 'to the library on Sunday.',
+                optA: 'often go',
+                optB: 'go often',
+                correct: 'A',
+                explanation: 'الظرف often يأتي قبل الفعل الأساسي go.',
+                fullSentence: 'We often go to the library on Sunday.',
+                iconSvg: `<svg class="w-12 h-12" viewBox="0 0 80 80" fill="none"><rect x="18" y="22" width="10" height="40" rx="2" fill="#3B82F6"/><rect x="32" y="16" width="10" height="46" rx="2" fill="#10B981"/><rect x="46" y="26" width="10" height="36" rx="2" fill="#F59E0B"/><line x1="12" y1="62" x2="68" y2="62" stroke="#475569" stroke-width="3"/></svg>`,
+                iconTitle: 'Library 📚'
+            },
+            {
+                id: 'p2_2',
+                num: 2,
+                subject: 'Tom',
+                rest: 'cartoons on TV.',
+                optA: 'watches sometimes',
+                optB: 'sometimes watches',
+                correct: 'B',
+                explanation: 'الظرف sometimes يأتي قبل الفعل الأساسي watches.',
+                fullSentence: 'Tom sometimes watches cartoons on TV.',
+                iconSvg: `<svg class="w-12 h-12" viewBox="0 0 80 80" fill="none"><rect x="16" y="24" width="48" height="34" rx="6" fill="#38BDF8" stroke="#0284C7" stroke-width="2"/><line x1="28" y1="16" x2="36" y2="24" stroke="#0284C7" stroke-width="2"/><line x1="52" y1="16" x2="44" y2="24" stroke="#0284C7" stroke-width="2"/><circle cx="34" cy="40" r="3" fill="#FFFFFF"/><circle cx="46" cy="40" r="3" fill="#FFFFFF"/></svg>`,
+                iconTitle: 'Television 📺'
+            },
+            {
+                id: 'p2_3',
+                num: 3,
+                subject: 'I',
+                rest: 'my homework before school.',
+                optA: 'always do',
+                optB: 'do always',
+                correct: 'A',
+                explanation: 'الظرف always يأتي قبل الفعل الأساسي do.',
+                fullSentence: 'I always do my homework before school.',
+                iconSvg: `<svg class="w-12 h-12" viewBox="0 0 80 80" fill="none"><rect x="22" y="20" width="36" height="44" rx="4" fill="#60A5FA"/><line x1="22" y1="20" x2="22" y2="64" stroke="#1D4ED8" stroke-width="4"/><line x1="30" y1="32" x2="50" y2="32" stroke="#FFFFFF" stroke-width="2"/><line x1="30" y1="42" x2="48" y2="42" stroke="#FFFFFF" stroke-width="2"/></svg>`,
+                iconTitle: 'Notebook 📓'
+            },
+            {
+                id: 'p2_4',
+                num: 4,
+                subject: 'Sally',
+                rest: 'cakes with her sister.',
+                optA: 'makes sometimes',
+                optB: 'sometimes makes',
+                correct: 'B',
+                explanation: 'الظرف sometimes يأتي قبل الفعل الأساسي makes.',
+                fullSentence: 'Sally sometimes makes cakes with her sister.',
+                iconSvg: `<svg class="w-12 h-12" viewBox="0 0 80 80" fill="none"><path d="M22 48 L22 62 C22 65, 58 65, 58 62 L58 48 Z" fill="#F472B6"/><path d="M26 36 L26 48 L54 48 L54 36 Z" fill="#FBCFE8"/><circle cx="40" cy="28" r="4" fill="#F43F5E"/></svg>`,
+                iconTitle: 'Cakes 🎂'
+            },
+            {
+                id: 'p2_5',
+                num: 5,
+                subject: 'Her children',
+                rest: 'video games.',
+                optA: 'play never',
+                optB: 'never play',
+                correct: 'B',
+                explanation: 'الظرف never يأتي قبل الفعل الأساسي play.',
+                fullSentence: 'Her children never play video games.',
+                iconSvg: `<svg class="w-12 h-12" viewBox="0 0 80 80" fill="none"><rect x="18" y="32" width="44" height="26" rx="8" fill="#1E293B"/><circle cx="30" cy="45" r="4" fill="#38BDF8"/><circle cx="50" cy="42" r="2.5" fill="#EF4444"/><circle cx="54" cy="48" r="2.5" fill="#FBBF24"/></svg>`,
+                iconTitle: 'Video games 🎮'
+            }
+        ];
+
+        let userPart2Choices = {};
+
+        function initPart2() {
+            userPart2Choices = {};
+            document.getElementById('part2Feedback').innerHTML = '';
+            const container = document.getElementById('part2QuestionsContainer');
+            container.innerHTML = '';
+
+            part2Data.forEach(item => {
+                const card = document.createElement('div');
+                card.id = `card-p2-${item.id}`;
+                card.className = "p-4 md:p-5 rounded-2xl bg-slate-50 border border-slate-200 transition hover:border-sky-300 flex flex-col md:flex-row items-center justify-between gap-4";
+                card.innerHTML = `
+                    <div class="flex-1 w-full" dir="ltr">
+                        <div class="flex items-center gap-2 mb-2 text-xs font-bold text-slate-500" dir="rtl">
+                            <span class="w-6 h-6 rounded-full bg-sky-100 text-sky-900 flex items-center justify-center font-black">${item.num}</span>
+                            <span>اختر الموضع الصحيح:</span>
+                        </div>
+
+                        <!-- Sentence Prompt -->
+                        <div class="en-font text-base md:text-lg font-bold text-slate-800 mb-3">
+                            <span>${item.num}. ${item.subject}</span>
+                            <span class="text-sky-700 bg-sky-50 px-2.5 py-0.5 rounded-lg border border-dashed border-sky-300 mx-1">....................</span>
+                            <span>${item.rest}</span>
+                            <button type="button" onclick="speakEnglish('${item.fullSentence}')" class="p-1.5 text-slate-400 hover:text-sky-600 rounded-lg hover:bg-sky-50 transition" title="استمع للجملة كاملة">
+                                🔊
+                            </button>
+                        </div>
+
+                        <!-- 2 Choice Buttons (A vs B) -->
+                        <div class="flex flex-wrap items-center gap-3">
+                            <button type="button" id="btn-${item.id}-A" onclick="choosePart2Option('${item.id}', 'A')" class="opt-btn flex-1 min-w-[150px] p-3 rounded-2xl border-2 border-slate-200 bg-white hover:border-sky-300 font-bold en-font text-sm md:text-base text-slate-700 transition flex items-center justify-between shadow-2xs">
+                                <span><b class="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md mr-1.5">A</b> ${item.optA}</span>
+                                <span class="indicator text-xs text-slate-300 font-sans">اختر</span>
+                            </button>
+
+                            <button type="button" id="btn-${item.id}-B" onclick="choosePart2Option('${item.id}', 'B')" class="opt-btn flex-1 min-w-[150px] p-3 rounded-2xl border-2 border-slate-200 bg-white hover:border-sky-300 font-bold en-font text-sm md:text-base text-slate-700 transition flex items-center justify-between shadow-2xs">
+                                <span><b class="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md mr-1.5">B</b> ${item.optB}</span>
+                                <span class="indicator text-xs text-slate-300 font-sans">اختر</span>
+                            </button>
+                        </div>
+
+                        <div id="fbk-${item.id}" class="text-xs font-bold mt-2 text-right hidden" dir="rtl"></div>
+                    </div>
+
+                    <!-- Matching Icon -->
+                    <div class="w-20 h-20 flex-shrink-0 flex items-center justify-center bg-white rounded-2xl border border-sky-100 shadow-xs">
+                        ${item.iconSvg}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function choosePart2Option(itemId, choice) {
+            initAudioEngine();
+            userPart2Choices[itemId] = choice;
+
+            const btnA = document.getElementById(`btn-${itemId}-A`);
+            const btnB = document.getElementById(`btn-${itemId}-B`);
+            if (!btnA || !btnB) return;
+
+            btnA.className = "opt-btn flex-1 min-w-[150px] p-3 rounded-2xl border-2 border-slate-200 bg-white hover:border-sky-300 font-bold en-font text-sm md:text-base text-slate-700 transition flex items-center justify-between shadow-2xs";
+            btnB.className = "opt-btn flex-1 min-w-[150px] p-3 rounded-2xl border-2 border-slate-200 bg-white hover:border-sky-300 font-bold en-font text-sm md:text-base text-slate-700 transition flex items-center justify-between shadow-2xs";
+
+            const selectedBtn = choice === 'A' ? btnA : btnB;
+            selectedBtn.className = "opt-btn flex-1 min-w-[150px] p-3 rounded-2xl border-2 border-sky-500 bg-sky-50 font-black en-font text-sm md:text-base text-sky-950 transition flex items-center justify-between shadow-sm";
+
+            playSoundFx('tap');
+        }
+
+        function checkPart2() {
+            initAudioEngine();
+            let correct = 0;
+            const total = part2Data.length;
+
+            part2Data.forEach(item => {
+                const choice = userPart2Choices[item.id];
+                const btnA = document.getElementById(`btn-${item.id}-A`);
+                const btnB = document.getElementById(`btn-${item.id}-B`);
+                const fbk = document.getElementById(`fbk-${item.id}`);
+                if (!fbk) return;
+
+                fbk.classList.remove('hidden', 'text-emerald-700', 'text-rose-600');
+
+                if (choice === item.correct) {
+                    correct++;
+                    const correctBtn = choice === 'A' ? btnA : btnB;
+                    correctBtn.className = "opt-btn flex-1 min-w-[150px] p-3 rounded-2xl border-2 border-emerald-500 bg-emerald-100 font-black en-font text-sm md:text-base text-emerald-950 transition flex items-center justify-between shadow-xs";
+                    fbk.classList.add('text-emerald-700');
+                    fbk.innerHTML = `✓ أحسنت! ${item.explanation}`;
+                } else {
+                    if (choice) {
+                        const wrongBtn = choice === 'A' ? btnA : btnB;
+                        wrongBtn.className = "opt-btn flex-1 min-w-[150px] p-3 rounded-2xl border-2 border-rose-400 bg-rose-50 font-black en-font text-sm md:text-base text-rose-900 transition flex items-center justify-between";
+                    }
+                    const correctBtn = item.correct === 'A' ? btnA : btnB;
+                    correctBtn.className = "opt-btn flex-1 min-w-[150px] p-3 rounded-2xl border-2 border-emerald-400 bg-emerald-50 font-black en-font text-sm md:text-base text-emerald-900 transition flex items-center justify-between";
+                    fbk.classList.add('text-rose-600');
+                    fbk.innerHTML = `✕ الإجابة الصحيحة هي (${item.correct}): ${item.explanation}`;
+                }
+            });
+
+            scoredP2 = correct;
+            updateScore(scoredP1, scoredP2);
+
+            const overall = document.getElementById('part2Feedback');
+            if (correct === total) {
+                overall.innerHTML = `<span class="text-emerald-700 font-black">🎉 إتقان تام للقسم الثاني (${total}/${total})!</span>`;
+                playSoundFx('cheer');
+                confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+            } else {
+                overall.innerHTML = `<span class="text-amber-800 font-bold">أصبت في ${correct} من أصل ${total}. راجع مواضع الأفعال وحاول ثانية.</span>`;
+                playSoundFx(correct > 0 ? 'success' : 'fail');
+            }
+        }
+
+        function resetPart2() {
+            initPart2();
+        }
+
+        const part3Sentences = [
+            { id: 'r1', words: ['We', 'often', 'go', 'to the library.'], correct: 'We often go to the library.' },
+            { id: 'r2', words: ['Tom', 'sometimes', 'watches', 'cartoons on TV.'], correct: 'Tom sometimes watches cartoons on TV.' },
+            { id: 'r3', words: ['I', 'always', 'do', 'my homework.'], correct: 'I always do my homework.' },
+            { id: 'r4', words: ['Sally', 'sometimes', 'makes', 'cakes.'], correct: 'Sally sometimes makes cakes.' },
+            { id: 'r5', words: ['They', 'never', 'play', 'video games.'], correct: 'They never play video games.' }
+        ];
+
+        let part3State = {};
+
+        function initPart3() {
+            part3State = {};
+            const container = document.getElementById('part3Container');
+            container.innerHTML = '';
+
+            part3Sentences.forEach((item, idx) => {
+                let shuffled = [...item.words].sort(() => Math.random() - 0.5);
+                if (shuffled.join(' ') === item.correct) shuffled.reverse();
+
+                part3State[item.id] = { placed: [], pool: [...shuffled] };
+
+                const card = document.createElement('div');
+                card.className = "p-4 md:p-5 rounded-2xl bg-slate-50 border border-slate-200";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between text-xs font-bold mb-3" dir="rtl">
+                        <span class="text-purple-900 font-black">رتّب الجملة ${idx + 1}:</span>
+                        <span class="text-slate-500 font-sans text-[11px]">اضغط على الكلمة لنقلها</span>
+                    </div>
+
+                    <!-- Target Box -->
+                    <div id="target-r-${item.id}" dir="ltr" class="min-h-[50px] p-2 rounded-xl bg-white border-2 border-dashed border-slate-300 flex flex-wrap items-center gap-2 mb-3"></div>
+
+                    <!-- Pool Box -->
+                    <div id="pool-r-${item.id}" dir="ltr" class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-200"></div>
+
+                    <!-- Controls -->
+                    <div class="mt-3 flex items-center justify-between" dir="rtl">
+                        <div id="fbk-r-${item.id}" class="text-xs font-bold hidden"></div>
+                        <div class="flex items-center gap-2 mr-auto" dir="ltr">
+                            <button type="button" onclick="checkPart3Item('${item.id}')" class="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs">تحقق</button>
+                            <button type="button" onclick="resetPart3Item('${item.id}')" class="px-3 py-1.5 rounded-xl border border-slate-300 text-slate-600 text-xs font-bold">↺ إعادة</button>
+                            <button type="button" onclick="speakEnglish('${item.correct}')" class="p-1.5 rounded-xl bg-slate-100 hover:text-purple-600 text-slate-500">🔊</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+                renderPart3ItemUI(item.id);
+            });
+        }
+
+        function renderPart3ItemUI(itemId) {
+            const state = part3State[itemId];
+            const target = document.getElementById(`target-r-${itemId}`);
+            const pool = document.getElementById(`pool-r-${itemId}`);
+            if (!target || !pool || !state) return;
+
+            target.innerHTML = '';
+            if (state.placed.length === 0) {
+                target.innerHTML = `<span class="text-xs text-slate-400 font-sans px-2">انقر على الكلمات بالأسفل لترتيبها هنا...</span>`;
+            } else {
+                state.placed.forEach((w, i) => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = "en-font font-black text-sm bg-purple-100 text-purple-950 border border-purple-300 px-3 py-1 rounded-xl flex items-center gap-1";
+                    btn.innerHTML = `<span>${w}</span><span class="text-xs opacity-60">✕</span>`;
+                    btn.onclick = () => returnWordToPool(itemId, i);
+                    target.appendChild(btn);
+                });
+            }
+
+            pool.innerHTML = '';
+            state.pool.forEach((w, i) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = "en-font font-bold text-sm bg-white text-slate-800 border-2 border-slate-200 hover:border-purple-400 px-3 py-1 rounded-xl shadow-xs active:scale-95";
+                btn.innerText = w;
+                btn.onclick = () => moveWordToTarget(itemId, i);
+                pool.appendChild(btn);
+            });
+        }
+
+        function moveWordToTarget(itemId, index) {
+            initAudioEngine();
+            const state = part3State[itemId];
+            const w = state.pool.splice(index, 1)[0];
+            state.placed.push(w);
+            playSoundFx('tap');
+            renderPart3ItemUI(itemId);
+        }
+
+        function returnWordToPool(itemId, index) {
+            initAudioEngine();
+            const state = part3State[itemId];
+            const w = state.placed.splice(index, 1)[0];
+            state.pool.push(w);
+            playSoundFx('tap');
+            renderPart3ItemUI(itemId);
+        }
+
+        function resetPart3Item(itemId) {
+            const item = part3Sentences.find(x => x.id === itemId);
+            if (!item) return;
+            let shuffled = [...item.words].sort(() => Math.random() - 0.5);
+            part3State[itemId] = { placed: [], pool: [...shuffled] };
+            const fbk = document.getElementById(`fbk-r-${itemId}`);
+            if (fbk) fbk.classList.add('hidden');
+            renderPart3ItemUI(itemId);
+        }
+
+        function checkPart3Item(itemId) {
+            initAudioEngine();
+            const item = part3Sentences.find(x => x.id === itemId);
+            const state = part3State[itemId];
+            const fbk = document.getElementById(`fbk-r-${itemId}`);
+            const target = document.getElementById(`target-r-${itemId}`);
+            if (!item || !state || !fbk || !target) return;
+
+            fbk.classList.remove('hidden', 'text-emerald-700', 'text-rose-600');
+
+            if (state.placed.join(' ') === item.correct) {
+                target.className = "min-h-[50px] p-2 rounded-xl bg-emerald-50 border-2 border-emerald-400 flex flex-wrap items-center gap-2 mb-3";
+                fbk.classList.add('text-emerald-700');
+                fbk.innerHTML = `✓ أحسنت! ترتيب نحوي ممتاز.`;
+                playSoundFx('success');
+            } else {
+                target.className = "min-h-[50px] p-2 rounded-xl bg-rose-50 border-2 border-rose-400 flex flex-wrap items-center gap-2 mb-3";
+                fbk.classList.add('text-rose-600');
+                fbk.innerHTML = `✕ ترتيب غير صحيح. تذكّر: الظرف يسبق الفعل الأساسي.`;
+                playSoundFx('fail');
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initPart1();
+            initPart2();
+            initPart3();
+        });
+    </script>
+</body>
+</html>
